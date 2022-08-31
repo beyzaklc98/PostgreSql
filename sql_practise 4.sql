@@ -47,12 +47,12 @@ select marka_id, calisan_sayisi from markalar
 where marka_isim in(select isyeri from calisanlar where sehir='Ankara');
  
 -- SORU4: Her markanin ismini, calisan sayisini ve o markaya ait calisanlarin toplam maaşini listeleyen bir Sorgu yaziniz.
-select marka_isim, calisan_sayisi from markalar
-where marka_isim in(select isyeri from calisanlar where calisan_sayisi>0);
- 
--- SORU5: Her markanin ismini, calisan sayisini ve o markaya ait calisanlarin ortalama maaşini listeleyen bir Sorgu yaziniz.
-select marka_isim, calisan_sayisi,(select round(avg(maas),2) from calisanlar where marka_isim=isyeri) from markalar;
+select marka_isim,calisan_sayisi, (select sum(maas) from calisanlar where marka_isim=isyeri)
+as toplam_maas from markalar
 
+-- SORU5: Her markanin ismini, calisan sayisini ve o markaya ait calisanlarin ortalama maaşini listeleyen bir Sorgu yaziniz.
+select marka_isim,calisan_sayisi,(select round(avg(maas))from calisanlar where marka_isim=isyeri)
+as ortalama_maas from markalar
 -- SORU6: Her markanin ismini, calisan sayisini ve o markaya ait calisanlarin maksimum ve minumum maaşini listeleyen bir Sorgu yaziniz.
 select marka_isim, calisan_sayisi,(select max(maas) from calisanlar where marka_isim=isyeri) as maksimum_maas,
                                   (select min(maas) from calisanlar where marka_isim=isyeri) as minimum_maas

@@ -47,7 +47,7 @@ select id,isim from personel6 where exists(select id from isciler where isciler.
 select count(*) from personel6
 
 --3)Isciler tablosunda en yuksek maasi alan kisinin tum bilgilerini gosteren query yazin
-select isim,sehir,sirket,maas from isciler order by maas desc limit 1
+select * from isciler where maas in (select max(maas) from isciler)
 
 --4)Isciler tablosunda ikinci en yuksek maasi maasi gosteren query yazin
 select maas from isciler order by maas desc limit 1 offset 1
@@ -55,3 +55,5 @@ select max(maas) as En_Yuksek_Ikinci_Maas from isciler where maas<(select max(ma
 
 --5)Isciler tablosunda ikinci en yuksek maasi alan kisinin tum bilgilerini listeleyen sorgu yaziniz
 select id,isim,sehir,maas,sehir from isciler order by maas desc limit 1 offset 1
+select * from isciler where maas in(select max(maas) from isciler
+									where maas<(select max(maas)from isciler))
